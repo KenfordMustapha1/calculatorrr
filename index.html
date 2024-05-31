@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            background-color: #4d4d4d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        table {
+            background-color: black;
+            width: 90%;
+            max-width: 400px;
+            margin-top: 10px;
+            border-radius: 40px;
+            padding: 10px;
+        }
+        .calculator input[type="text"] {
+            width: 97%;
+            height: 100px;
+            margin: 5px 1%;
+            background-color: white;
+            border-style: hidden;
+            font-size: 50px;
+            text-align: right;
+            color: black;
+            font-size: 30px;
+            border-radius: 10px;
+        }
+        .calculator input[type="button"] {
+            width: 70px;
+            height: 70px;
+            margin: 1%;
+            border-radius: 10px;
+            border-style: hidden;
+            font-size: 25px;
+            background-color: white;
+            color: black;
+            transition: background-color 0.3s ease; 
+            margin-left: 3px;
+        }
+        .calculator input[type="button"].skyblue {
+            background-color: #02FFD1;
+            color: white;
+        }
+        .calculator input[type="button"].skyblue1 {
+            background-color: #02FFD1;
+            color: black;
+        }
+
+        .calculator input[type="button"]:hover {
+            background-color: #3dffdb; 
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .calculator input[type="text"] {
+                height: 60px;
+                font-size: 2rem;
+            }
+            .calculator input[type="button"] {
+                height: 50px;
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calculator {
+                padding: 10px;
+            }
+            .calculator input[type="text"] {
+                height: 50px;
+                font-size: 1.75rem;
+            }
+            .calculator input[type="button"] {
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+        h1 {
+            color: #02FFD1;
+            font-size: 20px;
+            margin-top: 1%;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <table align="center">
+            <tr>
+                <td><h1> 𝘊𝘈𝘚𝘐𝘖 </h1></td>
+            </tr>
+            <tr>
+                <td colspan="4"><input type="text" id="display" disabled></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="AC" onclick="clearDisplay()" class="skyblue1"></td>
+                <td><input type="button" value="+/-" onclick="toggleSign()" class="skyblue1"></td>
+                <td><input type="button" value="X" onclick="del()" class="skyblue1"></td>
+                <td><input type="button" value="÷" onclick="appendOperator('/')" class="skyblue"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="1" onclick="appendNumber(1)"></td>
+                <td><input type="button" value="2" onclick="appendNumber(2)"></td>
+                <td><input type="button" value="3" onclick="appendNumber(3)"></td>
+                <td><input type="button" value="×" onclick="appendOperator('*')" class="skyblue"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="4" onclick="appendNumber(4)"></td>
+                <td><input type="button" value="5" onclick="appendNumber(5)"></td>
+                <td><input type="button" value="6" onclick="appendNumber(6)"></td>
+                <td><input type="button" value="-" onclick="appendOperator('-')" class="skyblue"></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="7" onclick="appendNumber(7)"></td>
+                <td><input type="button" value="8" onclick="appendNumber(8)"></td>
+                <td><input type="button" value="9" onclick="appendNumber(9)"></td>
+                <td><input type="button" value="+" onclick="appendOperator('+')" class="skyblue"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="button" value="0" onclick="appendNumber(0)" style="width: 150px;"></td>
+                <td><input type="button" value="." onclick="appendDot()"></td>
+                <td><input type="button" value="=" onclick="calculate()" class="skyblue"></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        let currentInput = '';
+        let currentOperator = '';
+
+        function appendNumber(number) {
+            currentInput += number;
+            document.getElementById('display').value = currentInput;
+        }
+
+        function add() {
+            currentOperator = "+";
+            currentInput += currentOperator;
+            document.getElementById('display').value = currentInput;
+        }
+
+        function minus() {
+            currentOperator = "-";
+            currentInput += currentOperator;
+            document.getElementById('display').value = currentInput;
+        }
+
+        function multi() {
+            currentOperator = "*";
+            currentInput += currentOperator;
+            document.getElementById('display').value = currentInput;
+        }
+
+        function calculate() {
+            const result = eval(currentInput);
+            document.getElementById('display').value = result;
+            currentInput = result.toString();
+        }
+
+        function appendOperator(operator) {
+            currentInput += operator;
+            document.getElementById('display').value = currentInput;
+        }
+
+        function appendDot() {
+            if (!currentInput.includes('.')) {
+                currentInput += '.';
+                document.getElementById('display').value = currentInput;
+            }   
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            document.getElementById('display').value = '';
+        }
+
+        function del() {
+           
+            currentInput = currentInput.slice(0, -1);
+            document.getElementById('display').value = currentInput;
+        }
+        
+    </script>
+</body>
+</html>
